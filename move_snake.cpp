@@ -64,6 +64,7 @@ void moveSnake() {
             }
         }
 
+        // 길이가 3보다 작을 때 종료
         if (snakeLength < 3){
             game_over = true;
             mvprintw(SCREEN_HEIGHT / 2 - 1, SCREEN_WIDTH / 2 - 5, "Game Over"); // 게임 오버 메시지 출력
