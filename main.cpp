@@ -8,13 +8,6 @@
 #include <unistd.h> // for usleep
 
 #include "header/snake_game.h"
-#include "draw.cpp"
-#include "game_start.cpp"
-#include "init_state.cpp"
-#include "run.cpp"
-#include "move_snake.cpp"
-#include "handle.cpp"
-
 
 int main() {
     // 시드 설정

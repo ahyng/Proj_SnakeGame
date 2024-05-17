@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/user/snake_game2
+CMAKE_SOURCE_DIR = /home/seungwan/Proj_SnakeGame
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/user/snake_game2/build
+CMAKE_BINARY_DIR = /home/seungwan/Proj_SnakeGame/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/snake_game2/build/CMakeFiles /home/user/snake_game2/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/seungwan/Proj_SnakeGame/build/CMakeFiles /home/seungwan/Proj_SnakeGame/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/snake_game2/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/seungwan/Proj_SnakeGame/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -117,24 +117,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named SnakeGame
+# Target rules for targets named run
 
 # Build rule for target.
-SnakeGame: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SnakeGame
-.PHONY : SnakeGame
+run: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 run
+.PHONY : run
 
 # fast build rule for target.
-SnakeGame/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/build
-.PHONY : SnakeGame/fast
+run/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/build
+.PHONY : run/fast
 
 draw.o: draw.cpp.o
 .PHONY : draw.o
 
 # target to build an object file
 draw.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/draw.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/draw.cpp.o
 .PHONY : draw.cpp.o
 
 draw.i: draw.cpp.i
@@ -142,7 +142,7 @@ draw.i: draw.cpp.i
 
 # target to preprocess a source file
 draw.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/draw.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/draw.cpp.i
 .PHONY : draw.cpp.i
 
 draw.s: draw.cpp.s
@@ -150,7 +150,7 @@ draw.s: draw.cpp.s
 
 # target to generate assembly for a file
 draw.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/draw.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/draw.cpp.s
 .PHONY : draw.cpp.s
 
 game_start.o: game_start.cpp.o
@@ -158,7 +158,7 @@ game_start.o: game_start.cpp.o
 
 # target to build an object file
 game_start.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/game_start.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/game_start.cpp.o
 .PHONY : game_start.cpp.o
 
 game_start.i: game_start.cpp.i
@@ -166,7 +166,7 @@ game_start.i: game_start.cpp.i
 
 # target to preprocess a source file
 game_start.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/game_start.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/game_start.cpp.i
 .PHONY : game_start.cpp.i
 
 game_start.s: game_start.cpp.s
@@ -174,7 +174,7 @@ game_start.s: game_start.cpp.s
 
 # target to generate assembly for a file
 game_start.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/game_start.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/game_start.cpp.s
 .PHONY : game_start.cpp.s
 
 handle.o: handle.cpp.o
@@ -182,7 +182,7 @@ handle.o: handle.cpp.o
 
 # target to build an object file
 handle.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/handle.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/handle.cpp.o
 .PHONY : handle.cpp.o
 
 handle.i: handle.cpp.i
@@ -190,7 +190,7 @@ handle.i: handle.cpp.i
 
 # target to preprocess a source file
 handle.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/handle.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/handle.cpp.i
 .PHONY : handle.cpp.i
 
 handle.s: handle.cpp.s
@@ -198,7 +198,7 @@ handle.s: handle.cpp.s
 
 # target to generate assembly for a file
 handle.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/handle.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/handle.cpp.s
 .PHONY : handle.cpp.s
 
 init_state.o: init_state.cpp.o
@@ -206,7 +206,7 @@ init_state.o: init_state.cpp.o
 
 # target to build an object file
 init_state.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/init_state.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/init_state.cpp.o
 .PHONY : init_state.cpp.o
 
 init_state.i: init_state.cpp.i
@@ -214,7 +214,7 @@ init_state.i: init_state.cpp.i
 
 # target to preprocess a source file
 init_state.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/init_state.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/init_state.cpp.i
 .PHONY : init_state.cpp.i
 
 init_state.s: init_state.cpp.s
@@ -222,7 +222,7 @@ init_state.s: init_state.cpp.s
 
 # target to generate assembly for a file
 init_state.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/init_state.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/init_state.cpp.s
 .PHONY : init_state.cpp.s
 
 main.o: main.cpp.o
@@ -230,7 +230,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -238,7 +238,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -246,7 +246,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 move_snake.o: move_snake.cpp.o
@@ -254,7 +254,7 @@ move_snake.o: move_snake.cpp.o
 
 # target to build an object file
 move_snake.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/move_snake.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/move_snake.cpp.o
 .PHONY : move_snake.cpp.o
 
 move_snake.i: move_snake.cpp.i
@@ -262,7 +262,7 @@ move_snake.i: move_snake.cpp.i
 
 # target to preprocess a source file
 move_snake.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/move_snake.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/move_snake.cpp.i
 .PHONY : move_snake.cpp.i
 
 move_snake.s: move_snake.cpp.s
@@ -270,7 +270,7 @@ move_snake.s: move_snake.cpp.s
 
 # target to generate assembly for a file
 move_snake.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/move_snake.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/move_snake.cpp.s
 .PHONY : move_snake.cpp.s
 
 run.o: run.cpp.o
@@ -278,7 +278,7 @@ run.o: run.cpp.o
 
 # target to build an object file
 run.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/run.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/run.cpp.o
 .PHONY : run.cpp.o
 
 run.i: run.cpp.i
@@ -286,7 +286,7 @@ run.i: run.cpp.i
 
 # target to preprocess a source file
 run.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/run.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/run.cpp.i
 .PHONY : run.cpp.i
 
 run.s: run.cpp.s
@@ -294,7 +294,7 @@ run.s: run.cpp.s
 
 # target to generate assembly for a file
 run.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SnakeGame.dir/build.make CMakeFiles/SnakeGame.dir/run.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/run.cpp.s
 .PHONY : run.cpp.s
 
 # Help Target
@@ -305,7 +305,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... SnakeGame"
+	@echo "... run"
 	@echo "... draw.o"
 	@echo "... draw.i"
 	@echo "... draw.s"

@@ -1,0 +1,37 @@
+[
+{
+  "directory": "/home/seungwan/Proj_SnakeGame/build",
+  "command": "/usr/bin/g++  -I/home/seungwan/Proj_SnakeGame/header -g -o CMakeFiles/run.dir/draw.cpp.o -c /home/seungwan/Proj_SnakeGame/draw.cpp",
+  "file": "/home/seungwan/Proj_SnakeGame/draw.cpp"
+},
+{
+  "directory": "/home/seungwan/Proj_SnakeGame/build",
+  "command": "/usr/bin/g++  -I/home/seungwan/Proj_SnakeGame/header -g -o CMakeFiles/run.dir/game_start.cpp.o -c /home/seungwan/Proj_SnakeGame/game_start.cpp",
+  "file": "/home/seungwan/Proj_SnakeGame/game_start.cpp"
+},
+{
+  "directory": "/home/seungwan/Proj_SnakeGame/build",
+  "command": "/usr/bin/g++  -I/home/seungwan/Proj_SnakeGame/header -g -o CMakeFiles/run.dir/handle.cpp.o -c /home/seungwan/Proj_SnakeGame/handle.cpp",
+  "file": "/home/seungwan/Proj_SnakeGame/handle.cpp"
+},
+{
+  "directory": "/home/seungwan/Proj_SnakeGame/build",
+  "command": "/usr/bin/g++  -I/home/seungwan/Proj_SnakeGame/header -g -o CMakeFiles/run.dir/init_state.cpp.o -c /home/seungwan/Proj_SnakeGame/init_state.cpp",
+  "file": "/home/seungwan/Proj_SnakeGame/init_state.cpp"
+},
+{
+  "directory": "/home/seungwan/Proj_SnakeGame/build",
+  "command": "/usr/bin/g++  -I/home/seungwan/Proj_SnakeGame/header -g -o CMakeFiles/run.dir/move_snake.cpp.o -c /home/seungwan/Proj_SnakeGame/move_snake.cpp",
+  "file": "/home/seungwan/Proj_SnakeGame/move_snake.cpp"
+},
+{
+  "directory": "/home/seungwan/Proj_SnakeGame/build",
+  "command": "/usr/bin/g++  -I/home/seungwan/Proj_SnakeGame/header -g -o CMakeFiles/run.dir/run.cpp.o -c /home/seungwan/Proj_SnakeGame/run.cpp",
+  "file": "/home/seungwan/Proj_SnakeGame/run.cpp"
+},
+{
+  "directory": "/home/seungwan/Proj_SnakeGame/build",
+  "command": "/usr/bin/g++  -I/home/seungwan/Proj_SnakeGame/header -g -o CMakeFiles/run.dir/main.cpp.o -c /home/seungwan/Proj_SnakeGame/main.cpp",
+  "file": "/home/seungwan/Proj_SnakeGame/main.cpp"
+}
+]

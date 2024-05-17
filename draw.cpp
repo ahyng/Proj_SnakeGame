@@ -17,6 +17,9 @@ void drawScreen() {
     // 먹이 그리기
     mvaddch(foodY, foodX, '@');
 
+    // 독 그리기
+    mvaddch(poisonY, poisonX, '%');
+
     // 스네이크 그리기
     for (int i = 0; i < snakeLength; ++i) {
         mvaddch(snakeY[i], snakeX[i], 'O');

@@ -3,5 +3,6 @@
         "condition_variable": "cpp",
         "cstdlib": "cpp",
         "iostream": "cpp"
-    }
+    },
+    "C_Cpp.default.compilerPath": "/usr/bin/g++"
 }

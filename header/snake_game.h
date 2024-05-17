@@ -22,10 +22,12 @@ extern std::mutex mtx;
 extern std::condition_variable cv;
 extern bool game_over;
 extern int foodX, foodY;
+extern int poisonX, poisonY;
 
 void initScreen();
 void initSnake();
 void initFood();
+void initPoison();
 void drawScreen();
 void moveSnake();
 void handleInput();

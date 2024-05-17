@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(snake_game2)
+project(Proj_SnakeGame)
 
 # 헤더 파일과 소스 파일 경로 설정
 include_directories(header)
@@ -16,6 +16,6 @@ set(SOURCES
 )
 
 # 실행 파일 생성
-add_executable(SnakeGame ${SOURCES})
+add_executable(run ${SOURCES})
 
-target_link_libraries(SnakeGame ncurses)
+target_link_libraries(run ncurses)

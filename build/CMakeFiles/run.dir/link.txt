@@ -1,0 +1,1 @@
+/usr/bin/g++ -g -rdynamic CMakeFiles/run.dir/draw.cpp.o CMakeFiles/run.dir/game_start.cpp.o CMakeFiles/run.dir/handle.cpp.o CMakeFiles/run.dir/init_state.cpp.o CMakeFiles/run.dir/move_snake.cpp.o CMakeFiles/run.dir/run.cpp.o CMakeFiles/run.dir/main.cpp.o -o run  -lncurses 
