@@ -26,8 +26,8 @@ void moveSnake() {
         if (nextX <= 0 || nextX >= SCREEN_WIDTH - 1 || nextY <= 0 || nextY >= SCREEN_HEIGHT - 1) {
             // 게임 오버
             game_over = true;
-            mvprintw(SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2 - 5, "Game Over"); // 게임 오버 메시지 출력
-            mvprintw(SCREEN_HEIGHT / 2 + 1, SCREEN_WIDTH / 2 - 12, "Press any key to restart");
+            mvprintw(SCREEN_HEIGHT / 2 - 1, SCREEN_WIDTH / 2 - 5, "Game Over"); // 게임 오버 메시지 출력
+            mvprintw(SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2 - 12, "Press any key to restart");
             refresh();
             getch();
             game_over = false; // 게임 종료 상태 해제
@@ -47,8 +47,8 @@ void moveSnake() {
             if (nextX == snakeX[i] && nextY == snakeY[i]) {
                 // 게임 오버
                 game_over = true;
-                mvprintw(SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2 - 5, "Game Over"); // 게임 오버 메시지 출력
-                mvprintw(SCREEN_HEIGHT / 2 + 1, SCREEN_WIDTH / 2 - 12, "Press any key to restart");
+                mvprintw(SCREEN_HEIGHT / 2 - 1, SCREEN_WIDTH / 2 - 5, "Game Over"); // 게임 오버 메시지 출력
+                mvprintw(SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2 - 12, "Press any key to restart");
                 refresh();
                 getch();
                 game_over = false; // 게임 종료 상태 해제
@@ -62,6 +62,24 @@ void moveSnake() {
                 direction = KEY_RIGHT;
                 continue;
             }
+        }
+
+        if (snakeLength < 3){
+            game_over = true;
+            mvprintw(SCREEN_HEIGHT / 2 - 1, SCREEN_WIDTH / 2 - 5, "Game Over"); // 게임 오버 메시지 출력
+            mvprintw(SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2 - 12, "Press any key to restart");
+            refresh();
+            getch();
+            game_over = false; // 게임 종료 상태 해제
+            // 스네이크 초기 설정
+            initSnake();
+            // 먹이 초기 설정
+            initFood();
+            // 독 초기 설정
+            initPoison();
+            // 초기에 스네이크가 오른쪽으로 움직이도록 설정
+            direction = KEY_RIGHT;
+            continue;
         }
 
         // 게임 오버일 때 종료
