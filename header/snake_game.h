@@ -8,6 +8,8 @@
 #include <mutex>
 #include <condition_variable>
 #include <unistd.h>
+#include <chrono>
+#include <thread>
 
 #define SCREEN_WIDTH 50
 #define SCREEN_HEIGHT 20
@@ -23,11 +25,13 @@ extern std::condition_variable cv;
 extern bool game_over;
 extern int foodX, foodY;
 extern int poisonX, poisonY;
+extern std::chrono::steady_clock::time_point lastFoodTime;
+extern std::chrono::steady_clock::time_point lastPoisonTime;
 
 void initScreen();
 void initSnake();
-void initFood();
-void initPoison();
+void initItem();
+void updateItem();
 void drawScreen();
 void moveSnake();
 void handleInput();

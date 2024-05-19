@@ -3,10 +3,8 @@
 void game_start() {
     // 스네이크 초기 설정
     initSnake();
-    // 먹이 초기 설정
-    initFood();
-    //독 초기 설정
-    initPoison();
+    // 아이템 초기 설정
+    initItem();
     // 초기에 스네이크가 오른쪽으로 움직이도록 설정
     direction = KEY_RIGHT;
     // 게임 화면 그리기
