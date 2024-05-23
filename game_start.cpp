@@ -9,6 +9,9 @@ void game_start() {
     initPoison();
     // 초기에 스네이크가 오른쪽으로 움직이도록 설정
     direction = KEY_RIGHT;
+
+    initPortals();
+
     // 게임 화면 그리기
     drawScreen();
     // 게임 실행
