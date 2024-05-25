@@ -1,1 +1,53 @@
 
+#include <ncurses.h>
+#include "header/snake_game.h"
+
+void drawScreen() {
+    clear();
+
+    // 상단 테두리 그리기
+    for (int i = 0; i < SCREEN_WIDTH; ++i) {
+        mvaddch(0, i, '#');
+    }
+
+    // 하단 테두리 그리기
+    for (int i = 0; i < SCREEN_WIDTH; ++i) {
+        mvaddch(SCREEN_HEIGHT - 1, i, '#');
+    }
+
+    // 좌측 테두리 그리기
+    for (int i = 0; i < SCREEN_HEIGHT; ++i) {
+        mvaddch(i, 0, '#');
+    }
+
+    // 우측 테두리 그리기
+    for (int i = 0; i < SCREEN_HEIGHT; ++i) {
+        mvaddch(i, SCREEN_WIDTH - 1, '#');
+    }
+
+
+    int centerX = SCREEN_WIDTH / 2;
+    int centerY = SCREEN_HEIGHT / 2;
+
+    for (int i = -5; i <= 5; ++i) {
+        mvaddch(centerY + i, centerX - abs(i), '#');
+        mvaddch(centerY + i, centerX + abs(i), '#');
+    }
+
+    // 음식 그리기
+    mvaddch(foodY, foodX, '@');
+
+    // 독 그리기
+    mvaddch(poisonY, poisonX, '%');
+
+    // 뱀 그리기
+    for (int i = 0; i < snakeLength; ++i) {
+        mvaddch(snakeY[i], snakeX[i], 'O');
+    }
+
+    // 포탈 그리기
+    mvaddch(portal1Y, portal1X, ' ');
+    mvaddch(portal2Y, portal2X, ' ');
+
+    refresh();
+}
