@@ -1,6 +1,6 @@
 void drawScreen() {
     clear();
-
+    
     // 상단 테두리 그리기
     for (int i = 0; i < SCREEN_WIDTH; ++i) {
         mvaddch(0, i, '#');
@@ -12,22 +12,32 @@ void drawScreen() {
     }
 
     // 좌측 테두리 그리기
-    for (int i = 1; i < SCREEN_HEIGHT - 1; ++i) {
+    for (int i = 0; i < SCREEN_HEIGHT; ++i) {
         mvaddch(i, 0, '#');
     }
 
     // 우측 테두리 그리기
-    for (int i = 1; i < SCREEN_HEIGHT - 1; ++i) {
+    for (int i = 0; i < SCREEN_HEIGHT; ++i) {
         mvaddch(i, SCREEN_WIDTH - 1, '#');
     }
 
-    // 가로선 그리기
-    for (int i = SCREEN_WIDTH / 4; i < 3 * SCREEN_WIDTH / 4; ++i) {
-        mvaddch(SCREEN_HEIGHT / 2, i, '#');
+    // 중앙을 기준으로 십자가 형태의 맵 그리기
+    int centerX = SCREEN_WIDTH / 2;
+    int centerY = SCREEN_HEIGHT / 2;
+
+    for (int i = -5; i <= 5; ++i) {
+        mvaddch(centerY + i, centerX - abs(i), '#');
+        mvaddch(centerY + i, centerX + abs(i), '#');
     }
 
-    // 세로선 그리기
-    for (int i = SCREEN_HEIGHT / 4; i < 3 * SCREEN_HEIGHT / 4; ++i) {
-        mvaddch(i, SCREEN_WIDTH / 2, '#');
+    // 음식과 독 포인트 추가
+    mvaddch(food.y, food.x, '@');
+    mvaddch(poison.y, poison.x, '*');
+
+    // 뱀 추가
+    for (int i = 0; i < snakeLength; ++i) {
+        mvaddch(snakeY[i], snakeX[i], 'o');
     }
+
+    refresh();
 }
