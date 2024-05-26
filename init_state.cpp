@@ -11,8 +11,12 @@ std::condition_variable cv;
 bool game_over;
 int foodX, foodY;
 int poisonX, poisonY;
+int doubleX, doubleY; // 'double' 아이템의 위치
 std::chrono::steady_clock::time_point lastFoodTime;
 std::chrono::steady_clock::time_point lastPoisonTime;
+std::chrono::steady_clock::time_point lastDoubleTime; // 'double' 아이템의 마지막 갱신 시간
+bool doubleActive = false; // 'double' 아이템 활성화 여부
+std::chrono::steady_clock::time_point doubleStartTime; // 'double' 아이템 활성화 시작 시간
 
 void initScreen() {
     initscr();
@@ -29,15 +33,41 @@ void initSnake() {
     snakeY[0] = SCREEN_HEIGHT / 2;
 }
 
-void initItem() {
+bool itemPosition(int x, int y) {
+    // 벽과 겹치는지 확인
+    for (int i = 0; i < NUM_WALL; ++i) {
+        if (wall[i][0] == y && wall[i][1] == x) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void initFood() {
     // 아이템 초기 설정 로직
-    foodX = rand() % (SCREEN_WIDTH - 2) + 1;
-    foodY = rand() % (SCREEN_HEIGHT - 2) + 1;
-    poisonX = rand() % (SCREEN_WIDTH - 2) + 1;
-    poisonY = rand() % (SCREEN_HEIGHT - 2) + 1;
+    do {
+        foodX = rand() % (SCREEN_WIDTH - 2) + 1;
+        foodY = rand() % (SCREEN_HEIGHT - 2) + 1;
+    } while (!itemPosition(foodX, foodY));
     lastFoodTime = std::chrono::steady_clock::now();
+}
+
+void initPoison() {
+    // 아이템 초기 설정 로직
+    do {
+        poisonX = rand() % (SCREEN_WIDTH - 2) + 1;
+        poisonY = rand() % (SCREEN_HEIGHT - 2) + 1;
+    } while (!itemPosition(poisonX, poisonY));
     lastPoisonTime = std::chrono::steady_clock::now();
-    // 뮤텍스 잠금 없이 아이템 초기화
+}
+
+void initDouble() {
+    // 'double' 아이템 초기 설정 로직
+    do {
+        doubleX = rand() % (SCREEN_WIDTH - 2) + 1;
+        doubleY = rand() % (SCREEN_HEIGHT - 2) + 1;
+    } while (!itemPosition(doubleX, doubleY));
+    lastDoubleTime = std::chrono::steady_clock::now();
 }
 
 void updateItem() {
@@ -48,9 +78,14 @@ void updateItem() {
         std::unique_lock<std::mutex> lk(mtx);
         auto now = std::chrono::steady_clock::now();
 
-        if (std::chrono::duration_cast<std::chrono::seconds>(now - lastFoodTime).count() >= 5 ||
-            std::chrono::duration_cast<std::chrono::seconds>(now - lastPoisonTime).count() >= 5) {
-            initItem();
+        if (std::chrono::duration_cast<std::chrono::seconds>(now - lastFoodTime).count() >= 5) {
+            initFood();
+        }
+        if (std::chrono::duration_cast<std::chrono::seconds>(now - lastPoisonTime).count() >= 5) {
+            initPoison();
+        }
+        if (std::chrono::duration_cast<std::chrono::seconds>(now - lastDoubleTime).count() >= 5) {
+            initDouble();
         }
         lk.unlock(); // 필요에 따라 수동으로 언락 가능
 
