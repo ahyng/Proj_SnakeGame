@@ -5,48 +5,13 @@ void drawScreen() {
     clear();
 
     // 상단 테두리 그리기
-    for (int i = 0; i < SCREEN_WIDTH/4; ++i) {
+    for (int i = 0; i < SCREEN_WIDTH; ++i) {
         mvaddch(0, i, '#');
     }
-
-    for (int i = SCREEN_WIDTH/4; i < 3 * SCREEN_WIDTH/4+1; ++i) {
-        mvaddch(6, i, '#');
-    }
-
-    for (int i =  3 * SCREEN_WIDTH/4; i < SCREEN_WIDTH; ++i) {
-        mvaddch(0, i, '#');
-    }
-
-    for (int i = 0; i < 6; ++i) {
-        mvaddch(i, SCREEN_WIDTH/4, '#');
-    }
-
-    for (int i = 0; i < 6; ++i) {
-        mvaddch(i, 3 * SCREEN_WIDTH/4, '#');
-    }
-
     // 하단 테두리 그리기
-    for (int i = 0; i < SCREEN_WIDTH/4+1; ++i) {
-        mvaddch(SCREEN_HEIGHT-1, i, '#');
+    for (int i = 0; i < SCREEN_WIDTH; ++i) {
+        mvaddch(SCREEN_HEIGHT - 1, i, '#');
     }
-
-    for (int i = SCREEN_WIDTH/4; i < 3 * SCREEN_WIDTH/4; ++i) {
-        mvaddch(SCREEN_HEIGHT-7, i, '#');
-    }
-
-    for (int i =  3 * SCREEN_WIDTH/4; i < SCREEN_WIDTH; ++i) {
-        mvaddch(SCREEN_HEIGHT-1, i, '#');
-    }
-
-    for (int i = SCREEN_HEIGHT-7; i < SCREEN_HEIGHT-1; ++i) {
-        mvaddch(i, SCREEN_WIDTH/4, '#');
-    }
-
-    for (int i = SCREEN_HEIGHT-7; i < SCREEN_HEIGHT-1; ++i) {
-        mvaddch(i, 3 * SCREEN_WIDTH/4, '#');
-    }
-
-
     // 좌측 테두리 그리기
     for (int i = 0; i < SCREEN_HEIGHT; ++i) {
         mvaddch(i, 0, '#');
@@ -54,6 +19,21 @@ void drawScreen() {
     // 우측 테두리 그리기
     for (int i = 0; i < SCREEN_HEIGHT; ++i) {
         mvaddch(i, SCREEN_WIDTH - 1, '#');
+    }
+
+    // 내부에 "ㅁ" 모양 그리기
+    int inner_top = SCREEN_HEIGHT / 4;
+    int inner_bottom = 3 * SCREEN_HEIGHT / 4;
+    int inner_left = SCREEN_WIDTH / 4;
+    int inner_right = 3 * SCREEN_WIDTH / 4;
+
+    for (int i = inner_left; i <= inner_right; ++i) {
+        mvaddch(inner_top, i, '#');
+        mvaddch(inner_bottom, i, '#');
+    }
+    for (int i = inner_top; i <= inner_bottom; ++i) {
+        mvaddch(i, inner_left, '#');
+        mvaddch(i, inner_right, '#');
     }
 
     // 음식 그리기
@@ -72,7 +52,6 @@ void drawScreen() {
 
     refresh();
 }
-
 //이전 코드
 // void drawScreen() {
 //     // 화면 클리어
