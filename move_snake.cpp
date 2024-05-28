@@ -37,6 +37,11 @@ void moveSnake() {
             else if (portal2X == SCREEN_WIDTH - 1) direction = KEY_LEFT; // 나오는 포털이 오른쪽에 있다면 왼쪽을 바라보기
             else if (portal2Y == 0) direction = KEY_DOWN; // 나오는 포털이 위에 있다면 아래를 바라보기
             else if (portal2Y == SCREEN_HEIGHT - 1) direction = KEY_UP; // 나오는 포털이 아래에 있다면 위를 바라보기
+            
+            //다른맵
+            else if (portal2Y > SCREEN_HEIGHT/2) direction = KEY_DOWN;
+            else if (portal2X < SCREEN_WIDTH/2) direction = KEY_LEFT;
+            else if (portal2X > SCREEN_WIDTH/2) direction = KEY_RIGHT;
 
         } else if (nextX == portal2X && nextY == portal2Y) {
             nextX = portal1X;
@@ -50,6 +55,11 @@ void moveSnake() {
             else if (portal1X == SCREEN_WIDTH - 1) direction = KEY_LEFT; // 나오는 포털이 오른쪽에 있다면 왼쪽을 바라보기
             else if (portal1Y == 0) direction = KEY_DOWN; // 나오는 포털이 위에 있다면 아래를 바라보기
             else if (portal1Y == SCREEN_HEIGHT - 1) direction = KEY_UP; // 나오는 포털이 아래에 있다면 위를 바라보기
+            
+            //다른맵
+            else if (portal1Y > SCREEN_HEIGHT/2) direction = KEY_DOWN;
+            else if (portal1X < SCREEN_WIDTH/2) direction = KEY_LEFT;
+            else if (portal1X > SCREEN_WIDTH/2) direction = KEY_RIGHT;
         }
 
         // if (wallCollisionEnabled && (

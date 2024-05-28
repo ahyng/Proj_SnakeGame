@@ -41,15 +41,19 @@ void initFood() {
     do {
         foodX = rand() % (SCREEN_WIDTH - 2) + 1;
         foodY = rand() % (SCREEN_HEIGHT - 2) + 1;
-    } while ((foodX >= INNER_LEFT && foodX <= INNER_RIGHT && (foodY == INNER_TOP || foodY == INNER_BOTTOM)) ||
-             (foodY >= INNER_TOP && foodY <= INNER_BOTTOM && (foodX == INNER_LEFT || foodX == INNER_RIGHT)));
+    } while 
+        (((foodX >= INNER_LEFT && foodX <= INNER_RIGHT && foodY <= INNER_TOP) ||
+        (foodX >= INNER_LEFT && foodX <= INNER_RIGHT && foodY >= INNER_BOTTOM)) &&
+        (mvinch(foodY, foodX) == '#'));
+
 }
 
 void initPoison() {
     do {
         poisonX = rand() % (SCREEN_WIDTH - 2) + 1;
         poisonY = rand() % (SCREEN_HEIGHT - 2) + 1;
-    } while ((foodX >= INNER_LEFT && foodX <= INNER_RIGHT && (foodY == INNER_TOP || foodY == INNER_BOTTOM)) ||
-             (foodY >= INNER_TOP && foodY <= INNER_BOTTOM && (foodX == INNER_LEFT || foodX == INNER_RIGHT)));
+    } while (((foodX >= INNER_LEFT && foodX <= INNER_RIGHT && foodY <= INNER_TOP) ||
+        (foodX >= INNER_LEFT && foodX <= INNER_RIGHT && foodY >= INNER_BOTTOM)) &&
+        (mvinch(foodY, foodX) == '#'));
 }
 
