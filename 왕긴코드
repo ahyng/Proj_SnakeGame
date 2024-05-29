@@ -8,8 +8,8 @@
 #include <unistd.h>
 #include <chrono>
 
-#define SCREEN_WIDTH 70
-#define SCREEN_HEIGHT 30
+#define SCREEN_WIDTH 50
+#define SCREEN_HEIGHT 20
 #define MAX_LENGTH 14
 
 int snakeX[MAX_LENGTH], snakeY[MAX_LENGTH];
