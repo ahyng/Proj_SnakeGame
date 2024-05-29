@@ -1,0 +1,320 @@
+#include <iostream>
+#include <ncurses.h>
+#include <cstdlib>
+#include <ctime>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+#include <unistd.h>
+#include <chrono>
+
+#define SCREEN_WIDTH 70
+#define SCREEN_HEIGHT 30
+#define MAX_LENGTH 14
+
+int snakeX[MAX_LENGTH], snakeY[MAX_LENGTH];
+int snakeLength;
+int direction;
+int gameSpeed;
+int verticalSpeed = 130000;
+int horizontalSpeed = 100000;
+std::mutex mtx;
+std::condition_variable cv;
+bool game_over = false;
+int portal1X, portal1Y;
+int portal2X, portal2Y;
+int growthItemCount = 0;
+int poisonItemCount = 0;
+std::chrono::steady_clock::time_point startTime;
+
+// 아이템의 종류를 나타내는 열거형
+enum class ItemType {
+    Food,
+    Poison
+};
+
+// 아이템의 정보를 저장하는 구조체
+struct Item {
+    int x;
+    int y;
+    ItemType type;
+    std::chrono::steady_clock::time_point spawn_time;
+    std::chrono::seconds lifespan;
+};
+
+Item food, poison; // 먹이, 독 아이템
+
+// 화면 초기 설정
+void initScreen() {
+    initscr();
+    noecho();
+    curs_set(0);
+    keypad(stdscr, TRUE);
+    gameSpeed = 100000;
+}
+
+// 스네이크 초기 설정
+void initSnake() {
+    snakeLength = 3;
+    snakeX[0] = SCREEN_WIDTH / 2;
+    snakeY[0] = SCREEN_HEIGHT / 2;
+}
+
+// 아이템 초기 설정
+void initItem(Item &item, ItemType type, int lifespan_seconds) {
+    item.x = rand() % (SCREEN_WIDTH - 2) + 1;
+    item.y = rand() % (SCREEN_HEIGHT - 2) + 1;
+    item.type = type;
+    item.spawn_time = std::chrono::steady_clock::now();
+    item.lifespan = std::chrono::seconds(lifespan_seconds);
+}
+
+// 게임 화면 그리기
+// 게임 화면 그리기
+void drawScreen() {
+    clear();
+    
+    // 상단 테두리 그리기
+    for (int i = 0; i < SCREEN_WIDTH; ++i) {
+        mvaddch(0, i, '#');
+    }
+
+    // 하단 테두리 그리기
+    for (int i = 0; i < SCREEN_WIDTH; ++i) {
+        mvaddch(SCREEN_HEIGHT - 1, i, '#');
+    }
+
+    // 좌측 테두리 그리기
+    for (int i = 0; i < SCREEN_HEIGHT; ++i) {
+        mvaddch(i, 0, '#');
+    }
+
+    // 우측 테두리 그리기
+    for (int i = 0; i < SCREEN_HEIGHT; ++i) {
+        mvaddch(i, SCREEN_WIDTH - 1, '#');
+    }
+
+    int centerX = SCREEN_WIDTH / 2;
+    int centerY = SCREEN_HEIGHT / 2;
+
+    for (int i = -5; i <= 5; ++i) {
+        mvaddch(centerY + i, centerX - abs(i), '#');
+        mvaddch(centerY + i, centerX + abs(i), '#');
+    }
+
+    // 음식과 독 포인트 추가
+    mvaddch(food.y, food.x, '@');
+    mvaddch(poison.y, poison.x, '*');
+
+    // 뱀 추가
+    for (int i = 0; i < snakeLength; ++i) {
+        mvaddch(snakeY[i], snakeX[i], 'o');
+    }
+
+    // Score Board 표시
+    auto now = std::chrono::steady_clock::now();
+    int gameTimeSeconds = std::chrono::duration_cast<std::chrono::seconds>(now - startTime).count();
+    float B = static_cast<float>(snakeLength) / MAX_LENGTH;
+    mvprintw(1, SCREEN_WIDTH + 5, "Score Board");
+    mvprintw(3, SCREEN_WIDTH + 5, "B: %.2f", B);
+    mvprintw(4, SCREEN_WIDTH + 5, "+: %d", growthItemCount);
+    mvprintw(5, SCREEN_WIDTH + 5, "-: %d", poisonItemCount);
+    mvprintw(6, SCREEN_WIDTH + 5, "G: %d", 0); // 게이트 사용 횟수, 필요시 수정
+    mvprintw(8, SCREEN_WIDTH + 5, "Time: %d seconds", gameTimeSeconds);
+
+    // Mission 표시
+    mvprintw(10, SCREEN_WIDTH + 5, "Mission");
+    mvprintw(11, SCREEN_WIDTH + 5, "B: 10 (%s)", (snakeLength >= 10 ? "v" : " "));
+    mvprintw(12, SCREEN_WIDTH + 5, "+: 5 (%s)", (growthItemCount >= 5 ? "v" : " "));
+    mvprintw(13, SCREEN_WIDTH + 5, "-: 2 (%s)", (poisonItemCount >= 2 ? "v" : " "));
+    mvprintw(14, SCREEN_WIDTH + 5, "G: 1 (%s)", (0 >= 1 ? "v" : " ")); // 게이트 사용 횟수, 필요시 수정
+
+    refresh();
+}
+
+// 아이템 재생성
+void respawnItem(Item &item) {
+    initItem(item, item.type, std::chrono::duration_cast<std::chrono::seconds>(item.lifespan).count());
+}
+
+// 아이템 체크 및 재생성
+void checkItems() {
+    while (!game_over) {
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+
+        auto now = std::chrono::steady_clock::now();
+        
+        if (now - food.spawn_time >= food.lifespan) {
+            respawnItem(food);
+        }
+        if (now - poison.spawn_time >= poison.lifespan) {
+            respawnItem(poison);
+        }
+    }
+}
+
+// 게임 오버 메시지 출력
+void gameOverMessage() {
+    clear();
+    mvprintw(SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2 - 5, "Game Over");
+    mvprintw(SCREEN_HEIGHT / 2 + 1, SCREEN_WIDTH / 2 - 10, "Press any key to restart");
+    refresh();
+    getch();
+}
+
+// 스네이크의 이동 로직
+void moveSnake() {
+    int nextX, nextY;
+
+    std::thread itemThread(checkItems);
+
+    while (!game_over) {
+        nextX = snakeX[0];
+        nextY = snakeY[0];
+        switch (direction) {
+            case KEY_UP:
+                nextY--;
+                break;
+            case KEY_DOWN:
+                nextY++;
+                break;
+            case KEY_LEFT:
+                nextX--;
+                break;
+            case KEY_RIGHT:
+                nextX++;
+                break;
+        }
+
+        // 벽과 중간의 '#' 문자와의 충돌을 확인합니다.
+        if (nextX <= 0 || nextX >= SCREEN_WIDTH - 1 || nextY <= 0 || nextY >= SCREEN_HEIGHT - 1 || 
+            mvinch(nextY, nextX) == L'#') {
+            game_over = true;
+            gameOverMessage();
+            break;
+        }
+
+        for (int i = 1; i < snakeLength; ++i) {
+            if (nextX == snakeX[i] && nextY == snakeY[i]) {
+                game_over = true;
+                gameOverMessage();
+                break;
+            }
+        }
+
+        if (game_over) {
+            break;
+        }
+
+        mtx.lock();
+        mvaddch(snakeY[snakeLength - 1], snakeX[snakeLength - 1], ' ');
+        for (int i = snakeLength - 1; i > 0; --i) {
+            snakeX[i] = snakeX[i - 1];
+            snakeY[i] = snakeY[i - 1];
+        }
+        snakeX[0] = nextX;
+        snakeY[0] = nextY;
+
+        // 아이템을 먹었는지 확인
+        if (nextX == food.x && nextY == food.y) {
+            snakeLength++;
+            respawnItem(food);
+            growthItemCount++;
+        } else if (nextX == poison.x && nextY == poison.y) {
+            if (snakeLength > 3) {
+                snakeLength--;
+                poisonItemCount++;
+            } else {
+                game_over = true; // 스네이크의 길이가 3보다 작을 때 게임 종료
+                mtx.unlock();
+                gameOverMessage();
+                break;
+            }
+            respawnItem(poison);
+        }
+
+        if (game_over) {
+            break;
+        }
+
+        mtx.unlock();
+
+        drawScreen();
+
+        cv.notify_one();
+        
+        if (direction == KEY_UP || direction == KEY_DOWN) {
+            usleep(verticalSpeed);
+        } else {
+            usleep(horizontalSpeed);
+        }
+
+        if (game_over) {
+            break;
+        }
+    }
+    
+    itemThread.join();
+}
+
+// 사용자 입력 처리
+void handleInput() {
+    int ch;
+
+    while (!game_over) {
+        ch = getch();
+        switch (ch) {
+            case KEY_UP:
+                if (direction != KEY_DOWN)
+                    direction = KEY_UP;
+                break;
+            case KEY_DOWN:
+                if (direction != KEY_UP)
+                    direction = KEY_DOWN;
+                break;
+            case KEY_LEFT:
+                if (direction != KEY_RIGHT)
+                    direction = KEY_LEFT;
+                break;
+            case KEY_RIGHT:
+                if (direction != KEY_LEFT)
+                    direction = KEY_RIGHT;
+                break;
+        }
+    }
+}
+
+// 게임 실행
+void runGame() {
+    std::thread moveThread(moveSnake);
+    handleInput();
+    moveThread.join();
+}
+
+// 게임 시작 및 재시작 로직
+void game_start() {
+    srand(time(NULL));
+    initScreen();
+
+    while (true) {
+        game_over = false; // 게임 오버 상태 초기화
+        startTime = std::chrono::steady_clock::now(); // 시작 시간 설정
+        growthItemCount = 0;
+        poisonItemCount = 0;
+        initSnake();
+        initItem(food, ItemType::Food, 5); // 아이템 수명 5초로 설정
+        initItem(poison, ItemType::Poison, 5); // 아이템 수명 5초로 설정
+
+        direction = KEY_RIGHT;
+        drawScreen();
+        runGame();
+    }
+
+    endwin();
+}
+
+int main() {
+    game_start();
+    return 0;
+}
+
