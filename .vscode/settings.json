@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "condition_variable": "cpp",
-        "cstdlib": "cpp",
-        "iostream": "cpp"
-    }
-}
