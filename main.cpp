@@ -8,13 +8,6 @@
 #include <unistd.h> // for usleep
 
 #include "header/snake_game.h"
-#include "draw.cpp"
-#include "game_start.cpp"
-#include "init_state.cpp"
-#include "run.cpp"
-#include "move_snake.cpp"
-#include "handle.cpp"
-
 
 int main() {
     // 시드 설정
@@ -23,9 +16,15 @@ int main() {
     // 화면 초기 설정
     initScreen();
 
+    // 아이템 위치 업데이트 스레드 시작
+    std::thread itemThread(updateItem); 
+
     // 게임 시작
     game_start();
-    
+
+    // 게임이 끝난 후 스레드 정리
+    itemThread.join();
+
     // ncurses 종료
     endwin();
 
