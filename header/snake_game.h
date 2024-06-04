@@ -11,6 +11,7 @@ using namespace std;
 #include <mutex>
 #include <condition_variable>
 #include <unistd.h>
+#include <algorithm>  
 #include <vector>
 #include <utility>
 #include <chrono>
@@ -53,6 +54,7 @@ extern int wall[NUM_WALL][2];
 extern int score;           // 점수 변수 추가
 extern int mapState;        // 맵 상태 변수 추가
 extern int foodEaten;  // 먹이를 먹은 횟수를 추적하는 변수
+extern int key[4];
 
 void initScreen();
 void initSnake();
