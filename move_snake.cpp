@@ -59,30 +59,71 @@ void moveSnake() {
             else if (portal2X == SCREEN_WIDTH - 1) direction = KEY_LEFT; // 나오는 포털이 오른쪽에 있다면 왼쪽을 바라보기
             else if (portal2Y == 0) direction = KEY_DOWN; // 나오는 포털이 위에 있다면 아래를 바라보기
             else if (portal2Y == SCREEN_HEIGHT - 1) direction = KEY_UP; // 나오는 포털이 아래에 있다면 위를 바라보기
-            
-            else if (mapState == 2){
-                if (portal2Y == 5) direction = KEY_UP;
-                else if (portal2X == SCREEN_WIDTH - 10) direction = KEY_RIGHT;
-                else if (portal2X == 10) direction = KEY_LEFT;
-                else if (portal2Y == SCREEN_HEIGHT - 6) direction = KEY_DOWN;
+
+            //map2
+            else if (mapState == 2){           
+                if (portal2Y == 5 || portal2Y == SCREEN_HEIGHT - 6){
+                    auto i = find(begin(key), end(key), direction);
+                    int index = distance(begin(key), i);
+                    if (direction != KEY_UP && direction != KEY_DOWN) {
+                        direction = key[(index+1) % 4];    
+                    }
+                }
+                
+                else if (portal2X == SCREEN_WIDTH - 10 || portal2X == 10){
+                    auto i = find(begin(key), end(key), direction);
+                    int index = distance(begin(key), i);
+                    if (direction != KEY_RIGHT && direction != KEY_LEFT) {
+                        direction = key[(index+1) % 4];    
+                    }
+                }
+                
             } 
 
-            //다른맵
+            //map3
             else if (mapState == 3){
-                if (portal2Y == SCREEN_HEIGHT - 6) direction = KEY_DOWN;
-                else if (portal2X == SCREEN_WIDTH - 12) direction = KEY_RIGHT;
-                else if (portal2X == 12) direction = KEY_LEFT;
+                if (portal2Y == SCREEN_HEIGHT - 6){
+                    auto i = find(begin(key), end(key), direction);
+                    int index = distance(begin(key), i);
+                    if (direction != KEY_UP && direction != KEY_DOWN) {
+                        direction = key[(index+1) % 4];    
+                    }
+                }
+
+                else if (portal2X == SCREEN_WIDTH - 12 || portal2X == 12){
+                    auto i = find(begin(key), end(key), direction);
+                    int index = distance(begin(key), i);
+                    if (direction != KEY_RIGHT && direction != KEY_LEFT) {
+                        direction = key[(index+1) % 4];    
+                    }
+                }
+
             }
 
+            //map4
             else if (mapState == 4){
                 if (portal2X < SCREEN_WIDTH / 2) direction = KEY_LEFT;
                 else if (portal2X > SCREEN_WIDTH / 2) direction = KEY_RIGHT;
             }
 
+            //map5
             else if (mapState == 5){
-                if (portal2Y == 6) direction = KEY_UP;
-                else if (portal2X == 15) direction = KEY_LEFT;
-                else if (portal2Y == SCREEN_HEIGHT-7) direction = KEY_DOWN;
+                if (portal2Y == 6 || portal2Y == SCREEN_HEIGHT-7){
+                    auto i = find(begin(key), end(key), direction);
+                    int index = distance(begin(key), i);
+                    if (direction != KEY_UP && direction != KEY_DOWN) {
+                        direction = key[(index+1) % 4];    
+                    }
+                }
+
+                else if (portal2X == 15){
+                    auto i = find(begin(key), end(key), direction);
+                    int index = distance(begin(key), i);
+                    if (direction != KEY_RIGHT && direction != KEY_LEFT) {
+                        direction = key[(index+1) % 4];    
+                    }
+                }
+
             }
 
 
@@ -100,32 +141,71 @@ void moveSnake() {
             else if (portal1Y == SCREEN_HEIGHT - 1) direction = KEY_UP; // 나오는 포털이 아래에 있다면 위를 바라보기
             
             //다른맵
+
+            //map2
             else if (mapState == 2){
-                if (portal1Y == 5) direction = KEY_UP;
-                else if (portal1X == SCREEN_WIDTH - 10) direction = KEY_RIGHT;
-                else if (portal1X == 10) direction = KEY_LEFT;
-                else if (portal1Y == SCREEN_HEIGHT - 6) direction = KEY_DOWN;
+                if (portal1Y == 5 || portal1Y == SCREEN_HEIGHT - 6){
+                    auto i = find(begin(key), end(key), direction);
+                    int index = distance(begin(key), i);
+                    if (direction != KEY_UP && direction != KEY_DOWN) {
+                        direction = key[(index+1) % 4];
+                    }
+                }
+                
+                else if (portal1X == SCREEN_WIDTH - 10 || portal1X == 10){
+                    auto i = find(begin(key), end(key), direction);
+                    int index = distance(begin(key), i);
+                    if (direction != KEY_RIGHT && direction != KEY_LEFT) {
+                        direction = key[(index+1) % 4];    
+                    }
+                }
+                
             } 
 
-            //다른맵
+            //map3
             else if (mapState == 3){
-                if (portal1Y == SCREEN_HEIGHT - 6) direction = KEY_DOWN;
-                else if (portal1X == SCREEN_WIDTH - 12) direction = KEY_RIGHT;
-                else if (portal1X == 12) direction = KEY_LEFT;
+                if (portal1Y == SCREEN_HEIGHT - 6){
+                    auto i = find(begin(key), end(key), direction);
+                    int index = distance(begin(key), i);
+                    if (direction != KEY_UP && direction != KEY_DOWN) {
+                        direction = key[(index+1) % 4];    
+                    }
+                }
+
+                else if (portal1X == SCREEN_WIDTH - 12 || portal1X == 12){
+                    auto i = find(begin(key), end(key), direction);
+                    int index = distance(begin(key), i);
+                    if (direction != KEY_RIGHT && direction != KEY_LEFT) {
+                        direction = key[(index+1) % 4];    
+                    }
+                }
             }
 
+            //map4
             else if (mapState == 4){
                 if (portal1X < SCREEN_WIDTH / 2) direction = KEY_LEFT;
                 else if (portal1X > SCREEN_WIDTH / 2) direction = KEY_RIGHT;
             }
 
+            //map5
             else if (mapState == 5){
-                if (portal1Y == 6) direction = KEY_UP;
-                else if (portal1X == 15) direction = KEY_LEFT;
-                else if (portal1Y == SCREEN_HEIGHT-7) direction = KEY_DOWN;
+                if (portal1Y == 6 || portal1Y == SCREEN_HEIGHT-7){
+                    auto i = find(begin(key), end(key), direction);
+                    int index = distance(begin(key), i);
+                    if (direction != KEY_UP && direction != KEY_DOWN) {
+                        direction = key[(index+1) % 4];    
+                    }
+                }
+
+                else if (portal1X == 15){
+                    auto i = find(begin(key), end(key), direction);
+                    int index = distance(begin(key), i);
+                    if (direction != KEY_RIGHT && direction != KEY_LEFT) {
+                        direction = key[(index+1) % 4];    
+                    }
+                }
             }
         }
-
         // if (wallCollisionEnabled && (
         //     nextX <= 0 || nextX >= SCREEN_WIDTH - 1 || 
         //     nextY <= 0 || nextY >= SCREEN_HEIGHT - 1 ||
