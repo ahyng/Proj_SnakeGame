@@ -1,4 +1,8 @@
 #include "header/snake_game.h"
+#include <algorithm>  // std::find
+
+using namespace std;
+int key[4] = {KEY_UP, KEY_RIGHT, KEY_DOWN, KEY_LEFT};
 
 void moveSnake() {
     int nextX, nextY;
