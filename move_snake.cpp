@@ -9,6 +9,28 @@ void moveSnake() {
     while (true) {
         nextX = snakeX[0];
         nextY = snakeY[0];
+        
+        // tail 방향으로 이동시 gameover
+        if (game_over == true){
+            mvprintw(SCREEN_HEIGHT / 2 - 1, SCREEN_WIDTH / 2 - 5, "Game Over");
+                mvprintw(SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2 - 12, "Press any key to restart");
+                refresh();
+                getch();
+                game_over = false;
+                srand(time(0)); // Re-seed the random number generator for each restart
+                initSnake();
+                initFood();
+                initPoison();
+                initDouble();
+                initPortals();
+                direction = KEY_RIGHT;
+                gateCount = 0;
+                growthItemCount = 0;  // 먹은 먹이 수 초기화
+                poisonItemCount = 0;
+                mapState = 1; // 맵 상태를 1로 설정
+                continue;
+        }
+        
         switch (direction) {
             case KEY_UP:
                 nextY--;
