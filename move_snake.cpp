@@ -32,6 +32,7 @@ void moveSnake() {
                 growthItemCount = 0;  // 먹은 먹이 수 초기화
                 poisonItemCount = 0;
                 mapState = 1; // 맵 상태를 1로 설정
+                gameStartTime = std::chrono::steady_clock::now();
                 continue;
         }
         
@@ -248,6 +249,8 @@ void moveSnake() {
                 initDouble();
                 initPortals();
                 direction = KEY_RIGHT;
+                mapState = 1; // 맵 상태를 1로 설정
+                gameStartTime = std::chrono::steady_clock::now();
                 continue;
             }
 
@@ -267,6 +270,8 @@ void moveSnake() {
                 initDouble();
                 initPortals();
                 direction = KEY_RIGHT;
+                mapState = 1; // 맵 상태를 1로 설정
+                gameStartTime = std::chrono::steady_clock::now();
                 continue;
             }
         }
@@ -286,6 +291,8 @@ void moveSnake() {
             initDouble();
             initPortals();
             direction = KEY_RIGHT;
+            mapState = 1; // 맵 상태를 1로 설정
+            gameStartTime = std::chrono::steady_clock::now();
             continue;
         }
 
