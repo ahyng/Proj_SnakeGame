@@ -13,12 +13,8 @@ bool isExcludedPosition(int x, int y) {
            (x == SCREEN_WIDTH - 1 && y == 0) || 
            (x == 0 && y == SCREEN_HEIGHT - 1) || 
            (x == SCREEN_WIDTH - 1 && y == SCREEN_HEIGHT - 1) ||
-        //    (x == 12 && y == 7) || 
-        //    (x == SCREEN_WIDTH - 12 && y == 7) || 
-        //    (x == 12 && y == SCREEN_HEIGHT - 6) || 
-        //    (x == SCREEN_WIDTH - 12 && y == SCREEN_HEIGHT - 6) ||
-           (x == 5 && y == 10) ||
-           (x == SCREEN_WIDTH-10 && y == SCREEN_WIDTH-6) || 
+           (x == 10 && y == 5) ||
+           (x == SCREEN_WIDTH-10 && y == SCREEN_HEIGHT-6) || 
            (x == 12 && y == SCREEN_HEIGHT-6) ||
            (x == SCREEN_WIDTH-12 && y == SCREEN_HEIGHT-6) ||
            (x == 15 && y == 6) ||
