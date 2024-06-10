@@ -322,8 +322,10 @@ void moveSnake() {
 
         // 먹이 획득
         if (nextX == foodX && nextY == foodY) {
-            snakeLength += (doubleActive ? 2 : 1); // 더블 아이템 효과 적용
-            initFood();
+            if (snakeLength < 14){
+                snakeLength += (doubleActive ? 2 : 1); // 더블 아이템 효과 적용
+                initFood();  
+            }
             growthItemCount += (doubleActive ? 2 : 1); // 더블 아이템 효과 적용
         }
 
